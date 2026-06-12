@@ -240,6 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentUserRaw) currentUser = JSON.parse(currentUserRaw);
     } catch(e) {}
 
+    // Redirect admin to admin dashboard
+    if (currentUser && currentUser.role === 'admin') {
+      window.location.href = 'admin-dashboard.html';
+      return;
+    }
+
     // Redirect to login if not logged in (no fallback on dashboard)
     if (!currentUser) {
       // Allow a brief preview fallback for dev testing
@@ -300,27 +306,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const fallbackUser = { name: 'John Doe', email: 'john@stackly.com', password: 'Password123!' };
 
+      // Check selected role (user or admin)
+      const selectedRole = localStorage.getItem('loginRole') || 'user';
+
+      const doLogin = (userData) => {
+        localStorage.setItem('currentUser', JSON.stringify({...userData, role: selectedRole}));
+        showToast('Login successful! Redirecting...', 'success');
+        const dest = selectedRole === 'admin' ? 'admin-dashboard.html' : 'dashboard.html';
+        setTimeout(() => { window.location.href = dest; }, 1500);
+      };
+
       if (registeredUser && registeredUser.email === emailVal) {
         if (registeredUser.password === passVal) {
-          localStorage.setItem('currentUser', JSON.stringify(registeredUser));
-          showToast('Login successful! Redirecting...', 'success');
-          setTimeout(() => { window.location.href = 'dashboard.html'; }, 1500);
+          doLogin(registeredUser);
         } else {
           Validator.setErr(document.getElementById('loginPassword'), 'Incorrect password.');
           showToast('Incorrect password.', 'error');
         }
       } else if (fallbackUser.email === emailVal) {
         if (fallbackUser.password === passVal) {
-          localStorage.setItem('currentUser', JSON.stringify(fallbackUser));
-          showToast('Login successful! Redirecting...', 'success');
-          setTimeout(() => { window.location.href = 'dashboard.html'; }, 1500);
+          doLogin(fallbackUser);
         } else {
           Validator.setErr(document.getElementById('loginPassword'), 'Incorrect password.');
           showToast('Incorrect password.', 'error');
         }
+      } else if (emailVal && passVal && passVal.length >= 6) {
+        // Allow any email — no registration required
+        const namePart = emailVal.split('@')[0];
+        const displayName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+        doLogin({ name: displayName, email: emailVal, password: passVal });
       } else {
-        Validator.setErr(document.getElementById('loginEmail'), 'Email not registered.');
-        showToast('Email not registered.', 'error');
+        Validator.setErr(document.getElementById('loginPassword'), 'Password must be at least 6 characters.');
+        showToast('Please enter a valid password (min 6 chars).', 'error');
       }
     });
 
@@ -329,9 +346,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const nameVal = document.getElementById('signupName')?.value || 'Guest';
       const emailVal = document.getElementById('signupEmail')?.value;
       const passVal = document.getElementById('signupPassword')?.value;
+      const roleRadio = document.querySelector('input[name="signupRole"]:checked');
+      const selectedRole = roleRadio ? roleRadio.value : 'user';
       
       if (emailVal && passVal) {
-        localStorage.setItem('registeredUser', JSON.stringify({ name: nameVal, email: emailVal, password: passVal }));
+        localStorage.setItem('registeredUser', JSON.stringify({ name: nameVal, email: emailVal, password: passVal, role: selectedRole }));
+        localStorage.setItem('loginRole', selectedRole);
         showToast('Account created! Redirecting to login...', 'success');
         setTimeout(() => { window.location.href = 'login.html'; }, 1500);
       }
@@ -347,6 +367,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Newsletter form
     Validator.initForm('#newsletterForm', (form) => {
       showToast('Subscribed successfully! Welcome aboard.', 'success');
+      form.reset();
+      form.querySelectorAll('[data-validate]').forEach(f => Validator.reset(f));
+    });
+
+    Validator.initForm('#moviesNewsletterForm', (form) => {
+      showToast('You\'ll be notified about new movie releases! 🎬', 'success');
       form.reset();
       form.querySelectorAll('[data-validate]').forEach(f => Validator.reset(f));
     });
@@ -462,4 +488,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+});
+
+/* ── Newsletter / Notify Me button handlers ──────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  // Home page Subscribe Now button
+  const newsletterBtn = document.getElementById('newsletterSubmit');
+  if (newsletterBtn) {
+    newsletterBtn.addEventListener('click', () => {
+      const emailInput = document.getElementById('newsletterEmail');
+      const errSpan = document.getElementById('newsletterEmailError');
+      const val = emailInput ? emailInput.value.trim() : '';
+      const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!val) {
+        if (errSpan) { errSpan.textContent = 'Email is required.'; errSpan.style.display = 'block'; }
+        return;
+      }
+      if (!emailReg.test(val)) {
+        if (errSpan) { errSpan.textContent = 'Enter a valid email address.'; errSpan.style.display = 'block'; }
+        return;
+      }
+      if (errSpan) { errSpan.textContent = ''; errSpan.style.display = 'none'; }
+      if (typeof showToast === 'function') showToast('Subscribed successfully! Welcome aboard. 🎉', 'success');
+      if (emailInput) emailInput.value = '';
+    });
+  }
+
+  // Movies page Notify Me button
+  const moviesNotifyBtn = document.getElementById('moviesNewsletterBtn');
+  if (moviesNotifyBtn) {
+    moviesNotifyBtn.addEventListener('click', () => {
+      const emailInput = document.getElementById('moviesNewsletterEmail');
+      const errSpan = document.getElementById('moviesNewsletterEmailError');
+      const val = emailInput ? emailInput.value.trim() : '';
+      const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!val) {
+        if (errSpan) { errSpan.textContent = 'Email is required.'; errSpan.style.display = 'block'; }
+        return;
+      }
+      if (!emailReg.test(val)) {
+        if (errSpan) { errSpan.textContent = 'Enter a valid email address.'; errSpan.style.display = 'block'; }
+        return;
+      }
+      if (errSpan) { errSpan.textContent = ''; errSpan.style.display = 'none'; }
+      if (typeof showToast === 'function') showToast('You\'ll be notified about new movie releases! 🎬', 'success');
+      if (emailInput) emailInput.value = '';
+    });
+  }
 });

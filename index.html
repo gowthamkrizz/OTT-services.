@@ -12,7 +12,6 @@
 <body>
 
 
-
 <!-- NAVBAR -->
 <nav class="navbar" id="mainNav">
   <div class="nav-logo">
@@ -142,13 +141,6 @@
     <span>💥 Neon City Blues</span><span class="sep">•</span>
     <span>🎭 The Mirror Effect</span><span class="sep">•</span>
     <span>🚀 Starfall Chronicles</span><span class="sep">•</span>
-    <span>🔥 Echoes of the Dark Universe</span><span class="sep">•</span>
-    <span>⚡ The Last Frontier S3</span><span class="sep">•</span>
-    <span>🎬 Crimson Empire</span><span class="sep">•</span>
-    <span>🌟 Shadow Protocol</span><span class="sep">•</span>
-    <span>💥 Neon City Blues</span><span class="sep">•</span>
-    <span>🎭 The Mirror Effect</span><span class="sep">•</span>
-    <span>🚀 Starfall Chronicles</span><span class="sep">•</span>
   </div>
 </div>
 
@@ -161,7 +153,7 @@
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
       <a href="404.html" class="btn btn-primary btn-lg" id="heroGetStarted">Get Started Free</a>
-      <a href="404.html" class="btn btn-outline btn-lg" id="heroSubscribe">Subscribe Now</a>
+      <a href="#newsletterSection" class="btn btn-outline btn-lg" id="heroSubscribe">Subscribe Now</a>
     </div>
   </div>
 </section>
@@ -439,11 +431,11 @@
         <span class="badge badge-primary" style="margin-bottom:16px;">📧 NEWSLETTER</span>
         <h2>Stay in the <span class="gradient-text">Loop</span></h2>
         <p>Get the latest releases, exclusive previews and special offers delivered to your inbox.</p>
-        <form id="newsletterForm" class="newsletter-form" novalidate>
+        <form id="newsletterForm" class="newsletter-form" novalidate onsubmit="return false;">
           <input type="email" id="newsletterEmail" name="email" placeholder="Enter your email address" data-validate="required|email" class="form-control" style="border-radius:40px;"/>
-          <span class="form-error" id="newsletterEmailError"></span>
-          <button type="button" class="btn btn-primary" id="newsletterSubmit" onclick="window.location.href='404.html'">Subscribe Now</button>
+          <button type="button" class="btn btn-primary" id="newsletterSubmit">Subscribe Now</button>
         </form>
+        <span class="form-error" id="newsletterEmailError" style="display:none;margin-top:8px;font-size:0.82rem;color:var(--clr-danger);"></span>
         <p style="margin-top:12px;color:var(--clr-text-muted);">No spam ever. Unsubscribe anytime. 🔒 Privacy protected.</p>
       </div>
     </div>
@@ -521,9 +513,7 @@
       dot.classList.add('active');
     });
   });
-  // Duplicate ticker
-  const track=document.getElementById('tickerTrack');
-  if(track){const clone=track.cloneNode(true);track.parentElement.appendChild(clone);}
+  // Ticker duplication disabled — single line only
 </script>
 </body>
 </html>

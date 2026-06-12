@@ -193,11 +193,11 @@
         <span class="badge badge-primary" style="margin-bottom:16px;">🎬 NEVER MISS A RELEASE</span>
         <h2>Get <span class="gradient-text">Movie Alerts</span></h2>
         <p>Be the first to know about new releases, premieres and exclusive Stackly Originals.</p>
-        <form id="moviesNewsletterForm" class="newsletter-form" novalidate>
+        <form id="moviesNewsletterForm" class="newsletter-form" novalidate onsubmit="return false;">
           <input type="email" id="moviesNewsletterEmail" name="email" placeholder="Enter your email" data-validate="required|email" class="form-control" style="border-radius:40px;"/>
-          <span class="form-error" id="moviesNewsletterEmailError"></span>
-          <button type="button" class="btn btn-primary" id="moviesNewsletterBtn" onclick="window.location.href='404.html'">Notify Me</button>
+          <button type="button" class="btn btn-primary" id="moviesNewsletterBtn">Notify Me</button>
         </form>
+        <span class="form-error" id="moviesNewsletterEmailError" style="display:none;margin-top:8px;font-size:0.82rem;color:var(--clr-danger);"></span>
       </div>
     </div>
   </div>
