@@ -11,6 +11,105 @@
 </head>
 <body>
 
+<!-- CINEMATIC PRELOADER -->
+<div class="page-loader" id="pageLoader">
+  <!-- Letterbox bars top/bottom -->
+  <div id="loaderLetterTop" style="position:absolute;top:0;left:0;right:0;height:0;background:#000;z-index:5;transition:height 0.5s ease;"></div>
+  <div id="loaderLetterBot" style="position:absolute;bottom:0;left:0;right:0;height:0;background:#000;z-index:5;transition:height 0.5s ease;"></div>
+  <!-- Left curtain -->
+  <div id="loaderCurtainL" style="position:absolute;top:0;bottom:0;left:0;width:51%;background:#080810;z-index:4;transition:transform 1s cubic-bezier(0.86,0,0.07,1);transform:translateX(0);"></div>
+  <!-- Right curtain -->
+  <div id="loaderCurtainR" style="position:absolute;top:0;bottom:0;right:0;width:51%;background:#080810;z-index:4;transition:transform 1s cubic-bezier(0.86,0,0.07,1);transform:translateX(0);"></div>
+  <!-- Scanlines -->
+  <div style="position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,0.012) 3px,rgba(255,255,255,0.012) 4px);"></div>
+  <!-- Grain -->
+  <div style="position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0.04;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%224%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');background-size:160px;"></div>
+  <!-- Center content -->
+  <div id="loaderCenter" style="position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;transition:opacity 0.7s ease 0.5s;width:100%;max-width:400px;padding:0 20px;box-sizing:border-box;text-align:center;">
+    <!-- Spinning ring + logo -->
+    <div style="position:relative;width:180px;height:180px;display:flex;align-items:center;justify-content:center;">
+      <div id="loaderRing" style="position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(124,58,237,0.4);animation:loaderSpin 3.5s linear infinite;"></div>
+      <div style="position:absolute;inset:12px;border-radius:50%;border:1px solid rgba(6,182,212,0.2);animation:loaderSpin 5s linear infinite reverse;"></div>
+      <img src="assets/img/stackly_logo.webp" alt="Stackly" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 0 32px rgba(124,58,237,0.9)) drop-shadow(0 0 64px rgba(168,85,247,0.5));animation:loaderLogoPulse 2.2s ease-in-out infinite;">
+    </div>
+    <!-- Brand name letter-spacing reveal -->
+    <div id="loaderTitle" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,10vw,5.5rem);letter-spacing:0.5em;color:#fff;text-shadow:0 0 40px rgba(124,58,237,0.7);opacity:0;transition:opacity 0.6s ease,letter-spacing 0.8s ease;padding-right:0.5em;max-width:100%;overflow:hidden;">STACKLY</div>
+    <div style="font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.35);opacity:0;transition:opacity 0.5s ease 1.2s;" id="loaderTagline">Stream Everything &nbsp;&bull;&nbsp; Anywhere &nbsp;&bull;&nbsp; Anytime</div>
+  </div>
+  <!-- Bottom timeline -->
+  <div id="loaderTimeline" style="position:absolute;bottom:10vh;left:0;right:0;z-index:3;display:flex;align-items:center;gap:14px;padding:0 8%;opacity:0;transition:opacity 0.5s ease 0.6s;">
+    <span id="loaderFrame" style="font-size:0.68rem;color:rgba(255,255,255,0.25);letter-spacing:0.05em;min-width:28px;text-align:center;font-variant-numeric:tabular-nums;">00</span>
+    <div style="flex:1;height:1.5px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;">
+      <div id="loaderProgressBar" style="height:100%;width:0;background:linear-gradient(90deg,var(--clr-primary),var(--clr-accent));border-radius:99px;transition:width 5.8s cubic-bezier(0.4,0,0.2,1);"></div>
+    </div>
+    <span style="font-size:0.68rem;color:rgba(255,255,255,0.25);letter-spacing:0.05em;">50</span>
+  </div>
+</div>
+<style>
+@keyframes loaderSpin { to { transform: rotate(360deg); } }
+@keyframes loaderLogoPulse {
+  0%,100% { filter: drop-shadow(0 0 28px rgba(124,58,237,0.8)) drop-shadow(0 0 56px rgba(168,85,247,0.4)); }
+  50%      { filter: drop-shadow(0 0 48px rgba(168,85,247,1)) drop-shadow(0 0 90px rgba(6,182,212,0.5)); }
+}
+</style>
+<script id="pageLoaderScript">
+(function(){
+  var loader = document.getElementById('pageLoader');
+  if(!loader) return;
+
+  var cL  = document.getElementById('loaderCurtainL');
+  var cR  = document.getElementById('loaderCurtainR');
+  var lT  = document.getElementById('loaderLetterTop');
+  var lB  = document.getElementById('loaderLetterBot');
+  var cnt = document.getElementById('loaderCenter');
+  var tl  = document.getElementById('loaderTimeline');
+  var bar = document.getElementById('loaderProgressBar');
+  var frm = document.getElementById('loaderFrame');
+  var ttl = document.getElementById('loaderTitle');
+  var tag = document.getElementById('loaderTagline');
+
+  /* Step 1: show content immediately — no blank screen */
+  requestAnimationFrame(function(){
+    cnt.style.opacity = '1';
+    tl.style.opacity  = '1';
+    lT.style.height = '9vh';
+    lB.style.height = '9vh';
+    /* title letter-spacing collapse */
+    setTimeout(function(){
+      ttl.style.opacity = '1';
+      ttl.style.letterSpacing = '0.15em';
+    }, 100);
+    /* tagline fade */
+    setTimeout(function(){ tag.style.opacity = '1'; }, 500);
+    /* progress bar fill */
+    setTimeout(function(){ bar.style.width = '100%'; }, 200);
+    /* frame counter */
+    var f = 0;
+    var ticker = setInterval(function(){
+      f++;
+      if(frm) frm.textContent = f < 10 ? '0'+f : f;
+      if(f >= 50) clearInterval(ticker);
+    }, 100);
+  });
+
+  /* Step 2: curtains open at 4.5s */
+  setTimeout(function(){
+    cL.style.transform = 'translateX(-104%)';
+    cR.style.transform = 'translateX(104%)';
+  }, 4500);
+
+  /* Step 3: exit at exactly 6 seconds */
+  function exitLoader(){
+    lT.style.height = '0';
+    lB.style.height = '0';
+    loader.style.transition = 'opacity 0.65s ease';
+    loader.style.opacity    = '0';
+    loader.style.pointerEvents = 'none';
+    setTimeout(function(){ if(loader.parentNode) loader.parentNode.removeChild(loader); }, 700);
+  }
+  setTimeout(exitLoader, 6000);
+})();
+</script>
 
 <!-- NAVBAR -->
 <nav class="navbar" id="mainNav">
@@ -449,6 +548,7 @@
       <div class="footer-brand" data-aos="fade-up">
         <a href="index.html" class="logo-btn"><img src="assets/img/stackly_logo.webp" class="logo-img" alt="Logo"></a>
         <p>Your ultimate entertainment destination. Stream movies, series, originals and more in stunning HD &amp; 4K quality. Available on all devices, anytime, anywhere.</p>
+        <span class="footer-brand-badge">Streaming Now Live</span>
         <div class="footer-socials">
           <a href="404.html" class="social-btn" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
           <a href="404.html" class="social-btn" aria-label="Twitter / X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.261 5.636 5.903-5.636zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
@@ -483,7 +583,31 @@
           <a href="404.html" class="app-badge"><span style=>🤖</span><div class="app-text"><small>Get it on</small><span>Google Play</span></div></a>
         </div>
       </div>
+      <div class="footer-location-block" data-aos="fade-up" data-aos-delay="350">
+        <h5>Find Us</h5>
+        <div class="footer-map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d977.4!2d78.1523!3d11.6643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDM5JzUxLjUiTiA3OMKwMDknMDguMyJF!5e0!3m2!1sen!2sin!4v1699000000000!5m2!1sen!2sin"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="MMR Complex Salem Location">
+          </iframe>
+        </div>
+        <div class="footer-address">
+          <svg class="footer-address-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <address>
+            MMR Complex Salem,<br>
+            Chinna Thirupathi,<br>
+            Near Chinna Muniyappan Kovil,<br>
+            Salem, Tamil Nadu 636008
+          </address>
+        </div>
+        <a href="https://maps.google.com/?q=MMR+Complex+Chinna+Thirupathi+Salem+Tamil+Nadu+636008" target="_blank" rel="noopener noreferrer" class="footer-map-link">
+          Open in Maps
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
     </div>
+    <hr class="footer-divider">
     <div class="footer-bottom">
       <p>© 2024 Stackly. All rights reserved. Made with ❤️ in India.</p>
       <div class="footer-links">
