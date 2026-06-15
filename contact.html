@@ -233,10 +233,10 @@
         <span class="badge badge-primary" style="margin-bottom:16px;">📧 STAY UPDATED</span>
         <h2>Get <span class="gradient-text">Updates</span></h2>
         <p>Subscribe to our newsletter for support tips, new features and exclusive content alerts.</p>
-        <form id="newsletterForm" class="newsletter-form" novalidate onsubmit="window.location.href='404.html'; return false;">
+        <form id="newsletterForm" class="newsletter-form" novalidate onsubmit="return false;">
           <input type="email" id="contactNewsletterEmail" name="email" placeholder="Enter your email address" data-validate="required|email" class="form-control" style="border-radius:40px;"/>
           <span class="form-error" id="contactNewsletterEmailError"></span>
-          <button type="submit" class="btn btn-primary" id="contactNewsletterBtn">Subscribe</button>
+          <button type="button" class="btn btn-primary" id="contactNewsletterBtn">Subscribe</button>
         </form>
       </div>
     </div>
@@ -316,5 +316,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script src="assets/js/validation.js"></script>
 <script src="assets/js/script.js"></script>
+<script>
+  // Contact newsletter validation and redirect
+  const contactNewsletterBtn = document.getElementById('contactNewsletterBtn');
+  const contactNewsletterEmail = document.getElementById('contactNewsletterEmail');
+  const contactNewsletterError = document.getElementById('contactNewsletterEmailError');
+  
+  if(contactNewsletterBtn) {
+    contactNewsletterBtn.addEventListener('click', function() {
+      const email = contactNewsletterEmail.value.trim();
+      if(email === '') {
+        contactNewsletterError.textContent = 'Email is required.';
+        contactNewsletterError.style.display = 'block';
+        contactNewsletterEmail.style.borderColor = 'var(--clr-danger)';
+        return;
+      }
+      if(!email.includes('@') || !email.includes('.')) {
+        contactNewsletterError.textContent = 'Enter a valid email address.';
+        contactNewsletterError.style.display = 'block';
+        contactNewsletterEmail.style.borderColor = 'var(--clr-danger)';
+        return;
+      }
+      contactNewsletterError.style.display = 'none';
+      contactNewsletterEmail.style.borderColor = '';
+      window.location.href = '404.html';
+    });
+  }
+</script>
 </body>
 </html>

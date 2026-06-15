@@ -196,7 +196,7 @@
         <p>Be the first to know about new releases, premieres and exclusive Stackly Originals.</p>
         <form id="moviesNewsletterForm" class="newsletter-form" novalidate onsubmit="return false;">
           <input type="email" id="moviesNewsletterEmail" name="email" placeholder="Enter your email" data-validate="required|email" class="form-control" style="border-radius:40px;"/>
-          <button type="button" class="btn btn-primary" id="moviesNewsletterBtn" onclick="window.location.href='404.html'">Notify Me</button>
+          <button type="button" class="btn btn-primary" id="moviesNewsletterBtn">Notify Me</button>
         </form>
         <span class="form-error" id="moviesNewsletterEmailError" style="display:none;margin-top:8px;font-size:0.82rem;color:var(--clr-danger);"></span>
       </div>
@@ -288,6 +288,33 @@
   // Load more
   const loadMore=document.getElementById('loadMoreMovies');
   if(loadMore){loadMore.addEventListener('click',function(){showToast('Loading more movies...','info');});}
+</script>
+<script>
+  // Movies newsletter validation and redirect
+  const moviesNewsletterBtn = document.getElementById('moviesNewsletterBtn');
+  const moviesNewsletterEmail = document.getElementById('moviesNewsletterEmail');
+  const moviesNewsletterError = document.getElementById('moviesNewsletterEmailError');
+  
+  if(moviesNewsletterBtn) {
+    moviesNewsletterBtn.addEventListener('click', function() {
+      const email = moviesNewsletterEmail.value.trim();
+      if(email === '') {
+        moviesNewsletterError.textContent = 'Email is required.';
+        moviesNewsletterError.style.display = 'block';
+        moviesNewsletterEmail.style.borderColor = 'var(--clr-danger)';
+        return;
+      }
+      if(!email.includes('@') || !email.includes('.')) {
+        moviesNewsletterError.textContent = 'Enter a valid email address.';
+        moviesNewsletterError.style.display = 'block';
+        moviesNewsletterEmail.style.borderColor = 'var(--clr-danger)';
+        return;
+      }
+      moviesNewsletterError.style.display = 'none';
+      moviesNewsletterEmail.style.borderColor = '';
+      window.location.href = '404.html';
+    });
+  }
 </script>
 </body>
 </html>

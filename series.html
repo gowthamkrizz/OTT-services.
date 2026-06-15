@@ -257,7 +257,7 @@
         <form id="newsletterForm" class="newsletter-form" novalidate>
           <input type="email" id="seriesNewsletterEmail" name="email" placeholder="Enter your email" data-validate="required|email" class="form-control" style="border-radius:40px;"/>
           <span class="form-error" id="seriesNewsletterEmailError"></span>
-          <button type="button" class="btn btn-accent" id="seriesNewsletterBtn" onclick="window.location.href='404.html'">Get Alerts</button>
+          <button type="button" class="btn btn-accent" id="seriesNewsletterBtn">Get Alerts</button>
         </form>
       </div>
     </div>
@@ -377,6 +377,33 @@
   const lms = document.getElementById('loadMoreSeries');
   if(lms) {
     lms.addEventListener('click', () => showToast('Loading more series...', 'info'));
+  }
+</script>
+<script>
+  // Series newsletter validation and redirect
+  const seriesNewsletterBtn = document.getElementById('seriesNewsletterBtn');
+  const seriesNewsletterEmail = document.getElementById('seriesNewsletterEmail');
+  const seriesNewsletterError = document.getElementById('seriesNewsletterEmailError');
+  
+  if(seriesNewsletterBtn) {
+    seriesNewsletterBtn.addEventListener('click', function() {
+      const email = seriesNewsletterEmail.value.trim();
+      if(email === '') {
+        seriesNewsletterError.textContent = 'Email is required.';
+        seriesNewsletterError.style.display = 'block';
+        seriesNewsletterEmail.style.borderColor = 'var(--clr-danger)';
+        return;
+      }
+      if(!email.includes('@') || !email.includes('.')) {
+        seriesNewsletterError.textContent = 'Enter a valid email address.';
+        seriesNewsletterError.style.display = 'block';
+        seriesNewsletterEmail.style.borderColor = 'var(--clr-danger)';
+        return;
+      }
+      seriesNewsletterError.style.display = 'none';
+      seriesNewsletterEmail.style.borderColor = '';
+      window.location.href = '404.html';
+    });
   }
 </script>
 </body>
