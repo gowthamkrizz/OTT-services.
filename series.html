@@ -7,6 +7,7 @@
   <meta name="description" content="Binge-worthy series on Stackly. Drama, Crime, Sci-Fi, Comedy — stream all seasons in HD &amp; 4K."/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
   <link rel="stylesheet" href="assets/css/style.css"/>
+  <style>html,body{overflow-x:hidden;}</style>
 </head>
 <body>
 
@@ -78,12 +79,12 @@
   <div class="container">
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
       <div class="tabs" style="flex:1;margin-bottom:0;">
-        <button class="tab-btn active" id="seriesTabAll">All</button>
-        <button class="tab-btn" id="seriesTabDrama">🎭 Drama</button>
-        <button class="tab-btn" id="seriesTabCrime">🔫 Crime</button>
-        <button class="tab-btn" id="seriesTabComedy">😂 Comedy</button>
-        <button class="tab-btn" id="seriesTabScifi">🚀 Sci-Fi</button>
-        <button class="tab-btn" id="seriesTabDoc">🎥 Documentary</button>
+        <button class="tab-btn active" data-filter="all" id="seriesTabAll">All</button>
+        <button class="tab-btn" data-filter="drama" id="seriesTabDrama">🎭 Drama</button>
+        <button class="tab-btn" data-filter="crime" id="seriesTabCrime">🔫 Crime</button>
+        <button class="tab-btn" data-filter="comedy" id="seriesTabComedy">😂 Comedy</button>
+        <button class="tab-btn" data-filter="scifi" id="seriesTabScifi">🚀 Sci-Fi</button>
+        <button class="tab-btn" data-filter="documentary" id="seriesTabDoc">🎥 Documentary</button>
       </div>
       <select class="filter-select" id="seriesSortFilter" aria-label="Sort series">
         <option>Sort By</option><option>Newest</option><option>Top Rated</option><option>Most Popular</option>
@@ -97,22 +98,85 @@
   <div class="container">
     <div class="content-row-header" data-aos="fade-up">
       <h3><span class="icon">📺</span> All Series</h3>
-      <span style="color:var(--clr-text-muted);">Showing 10 of 5,240 results</span>
+      <span style="color:var(--clr-text-muted);" id="seriesCount">Showing 10 of 5,240 results</span>
     </div>
-    <div class="content-grid" data-aos="fade-up" data-aos-delay="100">
-      <div class="content-card"><div class="thumb" style="background:url('assets//img/41.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-primary">S3 NEW</span></div><span class="rating">⭐ 9.1</span><div class="overlay"><h4>The Last Frontier</h4><p>Action · 3 Seasons</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card"><div class="thumb" style="background:url('assets//img/42.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">TRENDING</span></div><span class="rating">⭐ 8.6</span><div class="overlay"><h4>Dark Matter</h4><p>Sci-Fi · 2 Seasons</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card"><div class="thumb" style="background:url('assets//img/43.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-gold">EXCLUSIVE</span></div><span class="rating">⭐ 8.3</span><div class="overlay"><h4>Bloodlines</h4><p>Crime · 4 Seasons</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card"><div class="thumb" style="background:url('assets//img/1.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-accent">4K</span></div><span class="rating">⭐ 9.4</span><div class="overlay"><h4>Ocean Deep</h4><p>Drama · 2 Seasons</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card"><div class="thumb" style="background:url('assets//img/2.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 7.9</span><div class="overlay"><h4>Emerald Isle</h4><p>Mystery · 1 Season</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card"><div class="thumb" style="background:url('assets//img/3.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-gold">S2 NEW</span></div><span class="rating">⭐ 8.8</span><div class="overlay"><h4>Amber Alert</h4><p>Thriller · 2 Seasons</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card"><div class="thumb" style="background:url('assets//img/4.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-primary">S2</span></div><span class="rating">⭐ 8.0</span><div class="overlay"><h4>Purple Rain</h4><p>Drama · 2 Seasons</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card"><div class="thumb" style="background:url('assets//img/5.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-accent">NEW</span></div><span class="rating">⭐ 8.7</span><div class="overlay"><h4>Blue Horizon</h4><p>Adventure · 1 Season</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card"><div class="thumb" style="background:url('assets//img/6.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">TRENDING</span></div><span class="rating">⭐ 8.5</span><div class="overlay"><h4>Grey Shadows</h4><p>Crime · 3 Seasons</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card"><div class="thumb" style="background:url('assets//img/7.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-gold">EXCLUSIVE</span></div><span class="rating">⭐ 9.0</span><div class="overlay"><h4>Jade Empire</h4><p>Drama · 2 Seasons</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
+    <div class="content-grid" data-aos="fade-up" data-aos-delay="100" id="seriesGrid">
+      <!-- Series cards with data-genre attributes for filtering -->
+      <div class="content-card" data-genre="action">
+        <div class="thumb" style="background:url('assets//img/41.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-primary">S3 NEW</span></div>
+        <span class="rating">⭐ 9.1</span>
+        <div class="overlay"><h4>The Last Frontier</h4><p>Action · 3 Seasons</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="scifi">
+        <div class="thumb" style="background:url('assets//img/42.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-red">TRENDING</span></div>
+        <span class="rating">⭐ 8.6</span>
+        <div class="overlay"><h4>Dark Matter</h4><p>Sci-Fi · 2 Seasons</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="crime">
+        <div class="thumb" style="background:url('assets//img/43.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-gold">EXCLUSIVE</span></div>
+        <span class="rating">⭐ 8.3</span>
+        <div class="overlay"><h4>Bloodlines</h4><p>Crime · 4 Seasons</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="drama">
+        <div class="thumb" style="background:url('assets//img/1.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-accent">4K</span></div>
+        <span class="rating">⭐ 9.4</span>
+        <div class="overlay"><h4>Ocean Deep</h4><p>Drama · 2 Seasons</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="mystery">
+        <div class="thumb" style="background:url('assets//img/2.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-red">NEW</span></div>
+        <span class="rating">⭐ 7.9</span>
+        <div class="overlay"><h4>Emerald Isle</h4><p>Mystery · 1 Season</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="thriller">
+        <div class="thumb" style="background:url('assets//img/3.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-gold">S2 NEW</span></div>
+        <span class="rating">⭐ 8.8</span>
+        <div class="overlay"><h4>Amber Alert</h4><p>Thriller · 2 Seasons</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="drama">
+        <div class="thumb" style="background:url('assets//img/4.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-primary">S2</span></div>
+        <span class="rating">⭐ 8.0</span>
+        <div class="overlay"><h4>Purple Rain</h4><p>Drama · 2 Seasons</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="adventure">
+        <div class="thumb" style="background:url('assets//img/5.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-accent">NEW</span></div>
+        <span class="rating">⭐ 8.7</span>
+        <div class="overlay"><h4>Blue Horizon</h4><p>Adventure · 1 Season</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="crime">
+        <div class="thumb" style="background:url('assets//img/6.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-red">TRENDING</span></div>
+        <span class="rating">⭐ 8.5</span>
+        <div class="overlay"><h4>Grey Shadows</h4><p>Crime · 3 Seasons</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="drama">
+        <div class="thumb" style="background:url('assets//img/7.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-gold">EXCLUSIVE</span></div>
+        <span class="rating">⭐ 9.0</span>
+        <div class="overlay"><h4>Jade Empire</h4><p>Drama · 2 Seasons</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="comedy">
+        <div class="thumb" style="background:url('assets//img/8.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-accent">NEW</span></div>
+        <span class="rating">⭐ 8.2</span>
+        <div class="overlay"><h4>Laugh Factory</h4><p>Comedy · 2 Seasons</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
+      <div class="content-card" data-genre="documentary">
+        <div class="thumb" style="background:url('assets//img/9.webp') center/cover;aspect-ratio:2/3;"></div>
+        <div class="badge-wrap"><span class="badge badge-primary">NEW</span></div>
+        <span class="rating">⭐ 9.1</span>
+        <div class="overlay"><h4>Wild Planet</h4><p>Documentary · 1 Season</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div>
+      </div>
     </div>
     <div style="text-align:center;margin-top:40px;" data-aos="fade-up">
-      <button class="btn btn-outline btn-lg" id="loadMoreSeries">Load More Series</button>
+      <button class="btn btn-outline btn-lg" id="loadMoreSeries" onclick="window.location.href='404.html'">Load More Series</button>
     </div>
   </div>
 </section>
@@ -148,18 +212,17 @@
   <div class="container">
     <div class="content-row-header" data-aos="fade-up">
       <h3><span class="icon">✨</span> New This Week</h3>
-      <a href="#" class="see-all">See All →</a>
+      <a href="404.html" class="see-all">See All →</a>
     </div>
     <div class="scroll-row" data-aos="fade-up" data-aos-delay="100">
-      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/11.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">TODAY</span></div><span class="rating">⭐ 8.3</span><div class="overlay"><h4>Phantom Code</h4><p>Thriller</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/12.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 7.6</span><div class="overlay"><h4>Green Veil</h4><p>Drama</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play
-      </a></div></div>
-      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/13.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 8.9</span><div class="overlay"><h4>Ember Rising</h4><p>Action</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/14.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 8.1</span><div class="overlay"><h4>Indigo Moon</h4><p>Sci-Fi</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/15.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 8.7</span><div class="overlay"><h4>Red Pact</h4><p>Crime</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/16.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 7.8</span><div class="overlay"><h4>Magenta</h4><p>Romance</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/17.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 9.0</span><div class="overlay"><h4>Azure Deep</h4><p>Documentary</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
-      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/18.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 8.4</span><div class="overlay"><h4>Forest Folk</h4><p>Comedy</p><a href="login.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
+      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/11.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">TODAY</span></div><span class="rating">⭐ 8.3</span><div class="overlay"><h4>Phantom Code</h4><p>Thriller</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
+      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/12.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 7.6</span><div class="overlay"><h4>Green Veil</h4><p>Drama</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
+      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/13.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 8.9</span><div class="overlay"><h4>Ember Rising</h4><p>Action</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
+      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/14.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 8.1</span><div class="overlay"><h4>Indigo Moon</h4><p>Sci-Fi</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
+      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/15.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 8.7</span><div class="overlay"><h4>Red Pact</h4><p>Crime</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
+      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/16.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 7.8</span><div class="overlay"><h4>Magenta</h4><p>Romance</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
+      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/17.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 9.0</span><div class="overlay"><h4>Azure Deep</h4><p>Documentary</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
+      <div class="content-card" style="flex:0 0 180px;"><div class="thumb" style="background:url('assets//img/18.webp') center/cover;aspect-ratio:2/3;"></div><div class="badge-wrap"><span class="badge badge-red">NEW</span></div><span class="rating">⭐ 8.4</span><div class="overlay"><h4>Forest Folk</h4><p>Comedy</p><a href="404.html" class="btn btn-primary btn-sm">▶ Play</a></div></div>
     </div>
   </div>
 </section>
@@ -173,12 +236,12 @@
       <div class="section-line"></div>
     </div>
     <div class="categories-grid" data-aos="fade-up" data-aos-delay="100">
-      <div class="category-card"><div class="category-icon">🎭</div><h4>Drama</h4><p>1,240+ series</p></div>
-      <div class="category-card"><div class="category-icon">🔫</div><h4>Crime</h4><p>890+ series</p></div>
-      <div class="category-card"><div class="category-icon">😂</div><h4>Comedy</h4><p>760+ series</p></div>
-      <div class="category-card"><div class="category-icon">🚀</div><h4>Sci-Fi</h4><p>540+ series</p></div>
-      <div class="category-card"><div class="category-icon">🎥</div><h4>Documentary</h4><p>680+ series</p></div>
-      <div class="category-card"><div class="category-icon">👻</div><h4>Horror</h4><p>320+ series</p></div>
+      <div class="category-card" onclick="window.location.href='404.html'"><div class="category-icon">🎭</div><h4>Drama</h4><p>1,240+ series</p></div>
+      <div class="category-card" onclick="window.location.href='404.html'"><div class="category-icon">🔫</div><h4>Crime</h4><p>890+ series</p></div>
+      <div class="category-card" onclick="window.location.href='404.html'"><div class="category-icon">😂</div><h4>Comedy</h4><p>760+ series</p></div>
+      <div class="category-card" onclick="window.location.href='404.html'"><div class="category-icon">🚀</div><h4>Sci-Fi</h4><p>540+ series</p></div>
+      <div class="category-card" onclick="window.location.href='404.html'"><div class="category-icon">🎥</div><h4>Documentary</h4><p>680+ series</p></div>
+      <div class="category-card" onclick="window.location.href='404.html'"><div class="category-icon">👻</div><h4>Horror</h4><p>320+ series</p></div>
     </div>
   </div>
 </section>
@@ -274,8 +337,47 @@
 <script src="assets/js/validation.js"></script>
 <script src="assets/js/script.js"></script>
 <script>
-  document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');});});
-  const lms=document.getElementById('loadMoreSeries');if(lms){lms.addEventListener('click',()=>showToast('Loading more series...','info'));}
+  // Filter functionality for series page
+  document.querySelectorAll('[data-filter]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      // Update active state
+      document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Get filter value
+      const filterValue = this.getAttribute('data-filter');
+      const seriesCards = document.querySelectorAll('#seriesGrid .content-card');
+      let visibleCount = 0;
+      
+      // Filter cards
+      seriesCards.forEach(card => {
+        if (filterValue === 'all') {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          const cardGenre = card.getAttribute('data-genre');
+          if (cardGenre === filterValue) {
+            card.style.display = '';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+      
+      // Update count text
+      const countSpan = document.getElementById('seriesCount');
+      if (countSpan) {
+        countSpan.textContent = `Showing ${visibleCount} of ${seriesCards.length} results`;
+      }
+    });
+  });
+  
+  // Load more button
+  const lms = document.getElementById('loadMoreSeries');
+  if(lms) {
+    lms.addEventListener('click', () => showToast('Loading more series...', 'info'));
+  }
 </script>
 </body>
 </html>

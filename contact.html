@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
   <link rel="stylesheet" href="assets/css/style.css"/>
   <style>
+    html,body{overflow-x:hidden;}
     .social-connect-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
     @media(max-width:768px){.social-connect-grid{grid-template-columns:repeat(2,1fr);}}
     .social-card{background:var(--clr-card);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:32px 20px;text-align:center;transition:var(--transition);cursor:pointer;}
@@ -124,7 +125,7 @@
       <div class="contact-form" data-aos="fade-left" data-aos-delay="100">
         <h3 style="margin-bottom:6px;">Send a Message</h3>
         <p style="margin-bottom:28px;">Fill in the form and we'll get back to you shortly.</p>
-        <form id="contactForm" novalidate>
+        <form id="contactForm" novalidate onsubmit="window.location.href='404.html'; return false;">
           <div class="form-group">
             <label for="contactName">Full Name</label>
             <input type="text" id="contactName" name="name" class="form-control" placeholder="John Doe" data-validate="required|alpha|min:2" data-err-required="Name is required."/>
@@ -171,12 +172,9 @@
       <h2>Find <span class="gradient-text">Us</span></h2>
     </div>
     <div class="map-placeholder" data-aos="zoom-in" style="height:320px;">
-      <div class="map-grid"></div>
-      <div style="position:relative;z-index:2;text-align:center;">
-        <div style="margin-bottom:12px;">📍</div>
-        <p style="font-weight:600;color:var(--clr-text);margin-bottom:4px;">Stackly HQ — Mumbai, India</p>
-        <p>Interactive map coming soon</p>
-      </div>
+      <!-- Updated Salem Map Embed -->
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15664.74258315451!2d78.11317795!3d11.6654976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf15d0157fe8b%3A0x7f4a375bea6fad5a!2sSalem%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1648091914513!5m2!1sen!2sin" 
+              width="100%" height="100%" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
 </section>
@@ -235,7 +233,7 @@
         <span class="badge badge-primary" style="margin-bottom:16px;">📧 STAY UPDATED</span>
         <h2>Get <span class="gradient-text">Updates</span></h2>
         <p>Subscribe to our newsletter for support tips, new features and exclusive content alerts.</p>
-        <form id="newsletterForm" class="newsletter-form" novalidate>
+        <form id="newsletterForm" class="newsletter-form" novalidate onsubmit="window.location.href='404.html'; return false;">
           <input type="email" id="contactNewsletterEmail" name="email" placeholder="Enter your email address" data-validate="required|email" class="form-control" style="border-radius:40px;"/>
           <span class="form-error" id="contactNewsletterEmailError"></span>
           <button type="submit" class="btn btn-primary" id="contactNewsletterBtn">Subscribe</button>
